@@ -29,9 +29,6 @@ public class ExcelFrame extends JFrame {
             }
         };
         table.setModel(new MyTableModel());
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(new DateRenderer());
-        }
         table.setPreferredScrollableViewportSize(table.getPreferredSize());
         table.setRowHeight(48);
 
@@ -46,7 +43,7 @@ public class ExcelFrame extends JFrame {
 
     class MyTableModel extends AbstractTableModel {
         private String[] columnNames = new String[COLUMNS];
-        private Object[][] values = new Object[ROWS][COLUMNS];
+        private String[][] values = new String[ROWS][COLUMNS];
         private String[][] strings = new String[ROWS][COLUMNS];
         private Boolean round[][] = new Boolean[ROWS][COLUMNS];
         private Pattern datePattern = Pattern.compile("(\\d+)[.](\\d+)[.](\\d+)");
@@ -59,6 +56,8 @@ public class ExcelFrame extends JFrame {
             for (int i = 0; i < ROWS; ++i) {
                 for (int j = 0; j < COLUMNS; ++j) {
                     round[i][j] = false;
+                    strings[i][j] = "";
+                    values[i][j] = "";
                 }
             }
         }
@@ -76,7 +75,11 @@ public class ExcelFrame extends JFrame {
         }
 
         public Object getValueAt(int row, int col) {
-            return new Pair<String, String> (strings[row][col], (String) values[row][col]);
+//            if (table. {
+            return strings[row][col];
+//            } else {
+//                return values[row][col];
+//            }
         }
 
         public Class getColumnClass(int c) {
@@ -94,7 +97,7 @@ public class ExcelFrame extends JFrame {
         public void setValueAt(Object value, int row, int col) {
             boolean change = false;
             if (value != null) {
-                values[row][col] = value;
+                values[row][col] = (String)value;
                 String temp = (String) value;
                 temp = temp.replaceAll(" ", "");
                 String str = match(temp, row, col);
@@ -166,7 +169,7 @@ public class ExcelFrame extends JFrame {
 
                     char checker = new Character((char) ('A' + column));
                     round[row][column] = true;
-                    table.getColumnModel().getColumn(indexX).getCellRenderer().getTableCellRendererComponent(table, values[indexY][indexX], false, false, indexY, indexX);
+                    table.setValueAt(values[indexY][indexX], indexY, indexX);
                     round[row][column] = false;
                     String temp1 = strings[indexY][indexX];
                     m = Pattern.compile("(\\d+)").matcher(temp1);
@@ -247,21 +250,6 @@ public class ExcelFrame extends JFrame {
                 else
                     return "Illegal data!";
             }
-        }
-    }
-
-    private class DateRenderer extends DefaultTableCellRenderer {
-        private JTextField textField = new JTextField();
-
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            Pair<String, String> temp = (Pair<String, String>) value;
-            if (isSelected) {
-                textField.setText((String) ((Pair<String, String>) value).getValue());
-            } else {
-                textField.setText((String) ((Pair<String, String>) value).getKey());
-            }
-            return textField;
         }
     }
 }
