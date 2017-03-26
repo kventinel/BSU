@@ -87,17 +87,13 @@ public class ExcelFrame extends JFrame {
         }
 
         public boolean isCellEditable(int row, int col) {
-            if (col < 2) {
-                return false;
-            } else {
-                return true;
-            }
+            return true;
         }
 
         public void setValueAt(Object value, int row, int col) {
             boolean change = false;
             if (value != null) {
-                values[row][col] = (String)value;
+                values[row][col] = (String) value;
                 String temp = (String) value;
                 temp = temp.replaceAll(" ", "");
                 String str = match(temp, row, col);
