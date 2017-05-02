@@ -51,6 +51,9 @@ public class ExcelFrame extends JFrame {
         private Pattern letterDatePattern = Pattern.compile("^[=]([A-Z](\\d+))[+-](\\d+)$");
         private Pattern funcPattern = Pattern.compile("^[=]((MIN)|(MAX))[(](((\\d+)[.](\\d+)[.](\\d+)[,])|([A-Z](\\d+)[,]))*(((\\d+)[.](\\d+)[.](\\d+))|([A-Z](\\d+)))[)]");
         private Matcher m;
+        private int in_matcher = 0;
+        private int edit_col = -1;
+        private int edit_row = -1;
 
         MyTableModel() {
             for (int i = 0; i < ROWS; ++i) {
@@ -75,11 +78,10 @@ public class ExcelFrame extends JFrame {
         }
 
         public Object getValueAt(int row, int col) {
-//            if (table. {
-            return strings[row][col];
-//            } else {
-//                return values[row][col];
-//            }
+            if (edit_col == col && edit_row == row)
+                return values[row][col];
+            else
+                return strings[row][col];
         }
 
         public Class getColumnClass(int c) {
@@ -91,11 +93,15 @@ public class ExcelFrame extends JFrame {
         }
 
         public void setValueAt(Object value, int row, int col) {
+            if (in_matcher == 0) {
+                edit_col = col;
+                edit_row = row;
+            }
             boolean change = false;
             if (value != null) {
-                values[row][col] = (String) value;
                 String temp = (String) value;
                 temp = temp.replaceAll(" ", "");
+                values[row][col] = temp;
                 String str = match(temp, row, col);
                 if (!str.equals(strings[row][col])) {
                     strings[row][col] = match(temp, row, col);
@@ -103,12 +109,21 @@ public class ExcelFrame extends JFrame {
                 }
             }
 
-            if (change) {
+            while (change) {
+                change = false;
                 for (int i = 0; i < ROWS; ++i) {
                     for (int j = 0; j < COLUMNS; ++j) {
-                        setValueAt(values[i][j], i, j);
+                        String temp = match(values[i][j], i, j);
+                        if (!temp.equals(strings[i][j])) {
+                            strings[i][j] = temp;
+                            change = true;
+                        }
                     }
                 }
+            }
+            if (in_matcher == 0) {
+                edit_row = -1;
+                edit_col = -1;
             }
             fireTableCellUpdated(row, col);
         }
@@ -165,7 +180,9 @@ public class ExcelFrame extends JFrame {
 
                     char checker = new Character((char) ('A' + column));
                     round[row][column] = true;
+                    ++in_matcher;
                     table.setValueAt(values[indexY][indexX], indexY, indexX);
+                    --in_matcher;
                     round[row][column] = false;
                     String temp1 = strings[indexY][indexX];
                     m = Pattern.compile("(\\d+)").matcher(temp1);
@@ -190,39 +207,41 @@ public class ExcelFrame extends JFrame {
                 try {
                     SortedSet<GregorianCalendar> calendars = new TreeSet<>();
 
-                    m = datePattern.matcher(str);
-                    while (m.find()) {
-                        String dat = m.group();
-                        Matcher m1 = Pattern.compile("(\\d+)").matcher(dat);
-                        m1.find();
-                        int day = Integer.parseInt(m1.group());
-                        m1.find();
-                        int month = Integer.parseInt(m1.group());
+                    Matcher m1 = datePattern.matcher(str);
+                    while (m1.find()) {
+                        String dat = m1.group();
+                        Matcher m2 = Pattern.compile("(\\d+)").matcher(dat);
+                        m2.find();
+                        int day = Integer.parseInt(m2.group());
+                        m2.find();
+                        int month = Integer.parseInt(m2.group());
                         month--;
-                        m1.find();
-                        int year = Integer.parseInt(m1.group());
+                        m2.find();
+                        int year = Integer.parseInt(m2.group());
 
                         GregorianCalendar tmpCalendar = new GregorianCalendar(year, month, day);
                         calendars.add(tmpCalendar);
                     }
-                    m = Pattern.compile("[A-Z](\\d+)").matcher(str);
-                    while (m.find()) {
-                        String dat = m.group();
+                    m1 = Pattern.compile("[A-Z](\\d+)").matcher(str);
+                    while (m1.find()) {
+                        String dat = m1.group();
                         int indexX = dat.charAt(0) - 'A';
                         int indexY = dat.charAt(1) - '0' - 1;
 
                         round[row][column] = true;
-                        table.getColumnModel().getColumn(indexX).getCellRenderer().getTableCellRendererComponent(table, values[indexY][indexX], false, false, indexY, indexX);
+                        ++in_matcher;
+                        table.setValueAt(values[indexY][indexX], indexY, indexX);
+                        --in_matcher;
                         round[row][column] = false;
                         String temp1 = strings[indexY][indexX];
-                        Matcher m1 = Pattern.compile("(\\d+)").matcher(temp1);
-                        m1.find();
-                        int day = Integer.parseInt(m1.group());
-                        m1.find();
-                        int month = Integer.parseInt(m1.group());
+                        Matcher m2 = Pattern.compile("(\\d+)").matcher(temp1);
+                        m2.find();
+                        int day = Integer.parseInt(m2.group());
+                        m2.find();
+                        int month = Integer.parseInt(m2.group());
                         month--;
-                        m1.find();
-                        int year = Integer.parseInt(m1.group());
+                        m2.find();
+                        int year = Integer.parseInt(m2.group());
 
                         GregorianCalendar tmpCalendar = new GregorianCalendar(year, month, day);
                         calendars.add(tmpCalendar);
