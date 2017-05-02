@@ -1,0 +1,23 @@
+table.t1{
+	width: 100%;
+	font-size: 20px;
+	text-align: center;
+	border-collapse: collapse;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+}
+th.th1,td.td1{
+	border-style:solid;
+	border-color: white;
+	background: black;
+	color: yellow;
+}
+th.th1:first-child,td.td1:first-child{
+	text-align:left;
+}
+th.th1,td.td1:first-child{
+	background: grey;
+	color: black;
+	font-size: 30px;
+	font-weight: bold;
+}
+

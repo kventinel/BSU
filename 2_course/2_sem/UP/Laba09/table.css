@@ -1,0 +1,22 @@
+table{
+	width: 100%;
+	font-size: 20px;
+	text-align: center;
+	border-collapse: collapse;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+}
+th,td{
+	border-style:solid;
+	border-color: black;
+	background: white;
+	color: black;
+}
+th:first-child,td:first-child{
+	text-align:left;
+}
+th,td:first-child{
+	background: grey;
+	color: black;
+	font-size: 30px;
+	font-weight: bold;
+}
