@@ -1,0 +1,24 @@
+<html>
+ <head>
+ <meta http-equiv="Content-Type" content="text/html">
+	<title>Меню</title>
+ </head>
+ <body>
+ <a href="A.html"><img id="circle1" src="red.png" width="10%"></a>
+ <a href="B.html"><img id="circle2" src="red.png" width="10%"></a>
+ <a href="C.html"><img id="circle3" src="red.png" width="10%"></a>
+ <script>
+function mouseInCircle(){
+	event.target.src="green.png";
+}
+function mouseOutOfCircle(){
+	event.target.src="red.png";
+}
+document.getElementById("circle1").onmouseenter=mouseInCircle;
+document.getElementById("circle1").onmouseleave=mouseOutOfCircle;
+document.getElementById("circle2").onmouseenter=mouseInCircle;
+document.getElementById("circle2").onmouseleave=mouseOutOfCircle;
+document.getElementById("circle3").onmouseenter=mouseInCircle;
+document.getElementById("circle3").onmouseleave=mouseOutOfCircle;
+ </script>
+ </body></html>

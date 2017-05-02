@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+ <meta http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+	span{
+	 display: block;
+	}
+	name{
+	font-size: 100%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	color: white;
+	text-align: center;
+	}
+	bigletters{
+	font-size: 150%;
+	color: orange;
+	text-align: center;
+	}
+	draw{
+		color: blue;
+	}
+	</style>
+    <title> Расписание занятий </title>
+	<link rel="stylesheet" type="text/css" href="table.css">
+ </head>
+ <body>
+<center>
+ <a href="A.html"><img id="circle1" src="red.png" width="5%"></a>
+ <a href="B.html"><img id="circle2" src="red.png" width="5%"></a>
+ <a href="C.html"><img id="circle3" src="red.png" width="5%"></a>
+</center>
+ <script>
+function mouseInCircle(){
+	event.target.src="green.png";
+}
+function mouseOutOfCircle(){
+	event.target.src="red.png";
+}
+document.getElementById("circle1").onmouseenter=mouseInCircle;
+document.getElementById("circle1").onmouseleave=mouseOutOfCircle;
+document.getElementById("circle2").onmouseenter=mouseInCircle;
+document.getElementById("circle2").onmouseleave=mouseOutOfCircle;
+document.getElementById("circle3").onmouseenter=mouseInCircle;
+document.getElementById("circle3").onmouseleave=mouseOutOfCircle;
+ </script>
+  <table>
+	<caption><h1><center><font color="brown">Расписание занятий</font></center></h1></caption>
+	
+	<tr>
+		<th>День/Время</th>
+		<th>Понедельник</th>
+		<th>Вторник</th>
+		<th>Среда</th>
+		<th>Четверг</th>
+		<th>Пятница</th>
+		<th>Суббота</th>
+	</tr>
+	<tr>
+		<td>1 пара<br>8.15-9.35</td>
+		<td>Физкультура<br></td>
+		<td></td>
+		<td>ДУ<br>607</td>
+		<td>Физкультура</td>
+		<td>ТВиМС<br>521</td>
+        <td>МЧА<br>607</td>
+	</tr>
+	<tr>
+		<td>2 пара<br>9.45-11.05</td>
+		<td>ТА<br>607</td>
+		<td></td>
+		<td>ФАН<br>607</td>
+		<td>ТВИМС<br>605</td>
+		<td>ОС<br>521</td>
+		<td>ФАН<br>607</td>
+	</tr>
+	<tr>
+		<td>3 пара<br>11.15-12.35</td>
+		<td>ТВИМС<br>338</td>
+		<td></td>
+		<td>ОС<br>345</td>
+		<td>ТА<br>607</td>
+		<td>ТА<br>234</td>
+		<td>ДУ<br>250</td>
+	</tr>
+	<tr>
+		<td>4 пара<br>13.00-14.20</td>
+		<td>ТА<br>506</td>
+		<td></td>
+		<td></td>
+		<td>МЧА<br>350б</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>5 пара<br>14.30-15.50</td>
+		<td></td>
+		<td>УП<br>507</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>6 пара<br>16.00-17.20</td>
+		<td></td>
+		<td>УП<br>507</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	
+  </table>
+  <div align="center"><a href="b.html">Previous</a>&nbsp;<a href="a.html">First</a></div>
+ </body>
+</html>
