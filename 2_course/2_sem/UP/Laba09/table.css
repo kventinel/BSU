@@ -4,6 +4,7 @@ table{
 	text-align: center;
 	border-collapse: collapse;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    table-layout: fixed
 }
 th,td{
 	border-style:solid;
