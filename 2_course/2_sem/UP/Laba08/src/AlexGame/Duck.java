@@ -19,14 +19,14 @@ class Duck {
     static BufferedImage dieLeftDuck;
     static BufferedImage dieRightDuck;
 
-    Duck(int maxSpeed) {
+    Duck(int maxSpeed, int width, int height) {
         x = 0;
         Random duckRandom = new Random();
         y = duckRandom.nextInt(400);
         speedX = duckRandom.nextInt(maxSpeed) + 1;
         to_left = duckRandom.nextBoolean();
         if (!to_left) {
-            x = 1650;
+            x = width - leftDuck.getWidth();
         }
     }
 

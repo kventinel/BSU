@@ -15,28 +15,36 @@ class Panel extends JPanel {
     private BufferedImage lea;
     private Lightning lightning;
     private Zeus zeus;
-    private DuckObservable ducks = new DuckObservable();
+    private DuckObservable ducks;
     private boolean end = false;
     private Timer timer;
-    private Font textFont = new Font("name", Font.BOLD, 50);
+    private Font textFont;
+    private int width;
+    private int height;
 
-    Panel() {
+    Panel(int newWidth, int newHeight) {
         super();
-        Dimension windowSize = new Dimension(1862, 1025);
+        Dimension windowSize = new Dimension(newWidth, newHeight);
         setSize(windowSize);
         setMinimumSize(windowSize);
         setMaximumSize(windowSize);
 
+        width = newWidth;
+        height = newHeight;
+        textFont = new Font("name", Font.BOLD, newHeight / 20);
+
         try {
-            lea = ImageIO.read(new File("/home/alex/Documents/Git/BSU/2_course/2_sem/UP/Laba08/data/lea.jpg"));
+            lea = ImageIO.read(new File("data/lea.jpg"));
             lightning = new Lightning();
-            Duck.leftDuck = ImageIO.read(new File("/home/alex/Documents/Git/BSU/2_course/2_sem/UP/Laba08/data/duck_life_left.bmp"));
-            Duck.rightDuck = ImageIO.read(new File("/home/alex/Documents/Git/BSU/2_course/2_sem/UP/Laba08/data/duck_life_right.bmp"));
-            Duck.dieLeftDuck = ImageIO.read(new File("/home/alex/Documents/Git/BSU/2_course/2_sem/UP/Laba08/data/duck_die_left.bmp"));
-            Duck.dieRightDuck = ImageIO.read(new File("/home/alex/Documents/Git/BSU/2_course/2_sem/UP/Laba08/data/duck_die_right.bmp"));
-            zeus = new Zeus();
+            Duck.leftDuck = ImageIO.read(new File("data/duck_life_left.bmp"));
+            Duck.rightDuck = ImageIO.read(new File("data/duck_life_right.bmp"));
+            Duck.dieLeftDuck = ImageIO.read(new File("data/duck_die_left.bmp"));
+            Duck.dieRightDuck = ImageIO.read(new File("data/duck_die_right.bmp"));
+            zeus = new Zeus(width, height);
         } catch (IOException ex) {
         }
+
+        ducks = new DuckObservable(width, height);
 
         updateDucks();
         timer = new Timer(20, e -> {
@@ -70,12 +78,12 @@ class Panel extends JPanel {
             }
             g.drawString("Level:" + Integer.toString(ducks.getLevel()), 0, 50);
         } else {
-            g.drawString("Your Statistic:", 700, 300);
-            g.drawString("Level " + Integer.toString(ducks.getLevel()), 700, 400);
-            g.drawString("Count hits " + Double.toString(ducks.getHits()), 700, 500);
-            g.drawString("Count shoots " + Double.toString(ducks.getShoots()), 700, 600);
-            g.drawString("Accuracy " + Double.toString(100 * ducks.getAccuracy()) + "%", 700, 700);
-            g.drawString("Lost ducks " + Integer.toString(ducks.getLostDucks()), 700, 800);
+            g.drawString("Your Statistic:", width / 3, height * 3 / 10);
+            g.drawString("Level " + Integer.toString(ducks.getLevel()), width / 3, height * 4 / 10);
+            g.drawString("Count hits " + Double.toString(ducks.getHits()), width / 3, height * 5 / 10);
+            g.drawString("Count shoots " + Double.toString(ducks.getShoots()), width / 3, height * 6 / 10);
+            g.drawString("Accuracy " + Double.toString(100 * ducks.getAccuracy()) + "%", width / 3, height * 7 / 10);
+            g.drawString("Lost ducks " + Integer.toString(ducks.getLostDucks()), width / 3, height * 8 / 10);
             timer.stop();
         }
     }

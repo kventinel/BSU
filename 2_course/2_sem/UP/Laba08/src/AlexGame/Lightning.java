@@ -17,7 +17,7 @@ class Lightning {
     private int count = 10;
 
     Lightning() throws IOException{
-        lightning = ImageIO.read(new File("/home/alex/Documents/Git/BSU/2_course/2_sem/UP/Laba08/data/lightning.bmp"));
+        lightning = ImageIO.read(new File("data/lightning.bmp"));
     }
 
     void resize(int newX, int newY) {

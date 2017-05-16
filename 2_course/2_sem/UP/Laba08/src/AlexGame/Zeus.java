@@ -14,11 +14,11 @@ class Zeus {
     private int x;
     private int y;
 
-    Zeus() throws IOException {
-        x = 800;
-        y = 500;
+    Zeus(int width, int height) throws IOException {
+        zeus = ImageIO.read(new File("data/zeus.bmp"));
 
-        zeus = ImageIO.read(new File("/home/alex/Documents/Git/BSU/2_course/2_sem/UP/Laba08/data/zeus.bmp"));
+        x = (width - zeus.getWidth()) / 2;
+        y = (height - zeus.getHeight());
     }
 
     BufferedImage getImage() {

@@ -19,8 +19,12 @@ class DuckObservable {
     private double loose_shoots = 0;
     private double count_hits = 0;
     private int lost_ducks = 0;
+    private int width;
+    private int height;
 
-    DuckObservable() {
+    DuckObservable(int newWidth, int newHeight) {
+        width = newWidth;
+        height = newHeight;
     }
 
     private void addDuck(Duck duck) {
@@ -30,16 +34,16 @@ class DuckObservable {
     void move() {
         for (int i = list.size() - 1; i >= 0; --i) {
             list.get(i).move();
-            if (list.get(i).getX() > 1650 || list.get(i).getX() < 0) {
+            if (list.get(i).getX() > width - list.get(i).getImage().getWidth() || list.get(i).getX() < 0) {
                 ++lost_ducks;
                 list.remove(i);
-            } else if (list.get(i).getY() > 1000) {
+            } else if (list.get(i).getY() > height - 300) {
                 list.remove(i);
             }
         }
 
         while (list.size() < 5) {
-            addDuck(new Duck(level));
+            addDuck(new Duck(level, width, height));
         }
     }
 
@@ -93,17 +97,17 @@ class DuckObservable {
     private void music(int count_kill) {
         String killFile;
         if (count_hits - count_kill == 0) {
-            killFile = "/home/alex/Documents/Git/BSU/2_course/2_sem/UP/Laba08/data/first_blood.wav";
+            killFile = "data/first_blood.wav";
         } else {
             switch (count_kill) {
                 case 2:
-                    killFile = "/home/alex/Documents/Git/BSU/2_course/2_sem/UP/Laba08/data/kill2.wav";
+                    killFile = "data/kill2.wav";
                     break;
                 case 3:
-                    killFile = "/home/alex/Documents/Git/BSU/2_course/2_sem/UP/Laba08/data/kill3.wav";
+                    killFile = "data/kill3.wav";
                     break;
                 default:
-                    killFile = "/home/alex/Documents/Git/BSU/2_course/2_sem/UP/Laba08/data/kill.wav";
+                    killFile = "data/kill.wav";
             }
         }
         try {
