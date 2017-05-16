@@ -11,7 +11,7 @@ import java.io.*;
  * Created by Rak Alexey on 5/12/17.
  */
 
-class Panel extends JPanel {
+class DemoPanel extends JPanel {
     private BufferedImage lea;
     private Lightning lightning;
     private Zeus zeus;
@@ -22,7 +22,7 @@ class Panel extends JPanel {
     private int width;
     private int height;
 
-    Panel(int newWidth, int newHeight) {
+    DemoPanel(int newWidth, int newHeight) {
         super();
         Dimension windowSize = new Dimension(newWidth, newHeight);
         setSize(windowSize);

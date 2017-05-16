@@ -16,7 +16,7 @@ class Window extends JFrame {
         setMaximumSize(windowSize);
         setDefaultCloseOperation(Window.EXIT_ON_CLOSE);
 
-        add(new Panel(width, height));
+        add(new DemoPanel(width, height));
 
         setVisible(true);
     }

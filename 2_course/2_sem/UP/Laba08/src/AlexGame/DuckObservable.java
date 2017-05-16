@@ -3,6 +3,7 @@ package AlexGame;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
+import javax.swing.*;
 import java.io.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ class DuckObservable {
         music(count_kill);
     }
 
-    void getImages(Graphics g, Panel panel) {
+    void getImages(Graphics g, JPanel panel) {
         for (Duck duck : list) {
             g.drawImage(duck.getImage(), duck.getX(), duck.getY(), panel);
         }
