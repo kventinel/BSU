@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/alex/BSU/2_course/2_sem/MChA/Laba5/main.cpp
+iostream
+-
+vector
+-
+cmath
+-
+iomanip
+-
+

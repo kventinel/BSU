@@ -1,0 +1,3 @@
+/home/alex/BSU/2_course/2_sem/MChA/Laba5/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/alex/BSU/2_course/2_sem/MChA/Laba5/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/alex/BSU/2_course/2_sem/MChA/Laba5/cmake-build-debug/CMakeFiles/Laba5.dir
