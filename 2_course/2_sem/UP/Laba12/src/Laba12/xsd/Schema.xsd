@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema version="1.0"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <xsd:element name="StudentList" type="StudentList"/>
+    
+    <xsd:complexType name="StudentList">
+        <xsd:sequence>
+            <xsd:element name="Student"
+                         type="Student"
+                         minOccurs="0"
+                         maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:attributeGroup name="StudentAttributes">
+        <xsd:attribute name="name" type="StudentName"/>
+    </xsd:attributeGroup>
+    
+	<xsd:simpleType name="StudentName">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="Student">
+		<xsd:sequence>
+			<xsd:choice maxOccurs="unbounded">
+				<xsd:element name="ExamPass"
+							 type="ExamPass"/>
+				<xsd:element name="TestPass"
+							 type="TestPass"/>
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attributeGroup ref="StudentAttributes"/>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="Examinator">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="Passed">
+		<xsd:restriction base="xsd:boolean">
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="ExamPass">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="examinator" type="Examinator"/>
+				<xsd:attribute name="mark" type="Mark"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="TestPass">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="examinator" type="Examinator"/>
+				<xsd:attribute name="passed" type="Passed"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="Mark">
+		<xsd:restriction base="xsd:integer">
+            <xsd:minInclusive value="1"/> 
+            <xsd:maxInclusive value="10"/>
+        </xsd:restriction>
+	</xsd:simpleType>
+	
+</xsd:schema>

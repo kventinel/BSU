@@ -1,0 +1,5 @@
+<StudentList>
+	<Student name="stud">
+		<ExamPass examinator="SomeExaminator" mark="1">SomeName</ExamPass>
+	</Student>
+</StudentList>

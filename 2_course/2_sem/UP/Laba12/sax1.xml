@@ -1,0 +1,26 @@
+<StudentList>
+	<Student name="Ivanov Ivan">
+		<TestPass examinator="idk" passed="true">Polytologia</TestPass>
+		<TestPass examinator="Yadlovsky" passed="false">TerVer</TestPass>
+		<ExamPass examinator="Lappo" mark="4">TerVer</ExamPass>
+		<ExamPass examinator="Ryabi" mark="10">OS</ExamPass>
+	</Student>
+	<Student name="Petrov Ivan">
+		<TestPass examinator="idk" passed="true">Polytologia</TestPass>
+		<TestPass examinator="Yadlovsky" passed="true">TerVer</TestPass>
+		<ExamPass examinator="Lappo" mark="4">TerVer</ExamPass>
+		<ExamPass examinator="Ryabi" mark="10">OS</ExamPass>
+	</Student>
+	<Student name="Pavluschenko Alesha">
+		<TestPass examinator="idk" passed="true">Polytologia</TestPass>
+		<TestPass examinator="Yadlovsky" passed="false">TerVer</TestPass>
+		<ExamPass examinator="Lappo" mark="2">TerVer</ExamPass>
+		<ExamPass examinator="Ryabi" mark="2">OS</ExamPass>
+	</Student>
+	<Student name="Kekushchenko Ivan">
+		<TestPass examinator="idk" passed="false">Polytologia</TestPass>
+		<TestPass examinator="Yadlovsky" passed="false">TerVer</TestPass>
+		<ExamPass examinator="Lappo" mark="4">TerVer</ExamPass>
+		<ExamPass examinator="Ryabi" mark="10">OS</ExamPass>
+	</Student>
+</StudentList>

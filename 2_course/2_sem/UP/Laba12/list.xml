@@ -1,0 +1,10 @@
+<StudentList>
+	<Student name="stud">
+		<ExamPass examinator="SomeExaminator" mark="1">SomeName</ExamPass>
+		<TestPass examinator="SomeExaminator" passed="false">SomeName</TestPass>
+		<ExamPass examinator="SomeExaminator" mark="1">SomeName</ExamPass>
+		<ExamPass examinator="SomeExaminator" mark="1">SomeName</ExamPass>
+		<TestPass examinator="SomeExaminator" passed="false">SomeName</TestPass>
+		<TestPass examinator="SomeExaminator" passed="false">SomeName</TestPass>
+	</Student>
+</StudentList>
