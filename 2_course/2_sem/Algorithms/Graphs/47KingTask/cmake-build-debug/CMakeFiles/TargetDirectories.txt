@@ -1,0 +1,3 @@
+/home/alex/BSU/2_course/2_sem/Algorithms/Graphs/47KingTask/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/alex/BSU/2_course/2_sem/Algorithms/Graphs/47KingTask/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/alex/BSU/2_course/2_sem/Algorithms/Graphs/47KingTask/cmake-build-debug/CMakeFiles/47KingTask.dir
