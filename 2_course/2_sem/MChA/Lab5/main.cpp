@@ -3,6 +3,9 @@
 #include <cmath>
 #include <iomanip>
 
+const double a = 1.3;
+double df9max = a * exp(2.0) + (1 - a) * cos(2);
+
 class Interpolation {
 public:
     Interpolation(const std::vector<std::vector<double>> &function) :
@@ -49,26 +52,48 @@ private:
     std::vector<std::vector<double>> divided_diff_;
 };
 
-double func(double a, double x) {
+double func(double x) {
     return a * exp(x) + (1 - a) * sin(x);
 }
 
-double grad(double a, double x) {
+double grad(double x) {
     return a * exp(x) + (1 - a) * cos(x);
 }
 
-double ges(double a, double x) {
+double ges(double x) {
     return a * exp(x) - (1 - a) * sin(x);
+}
+
+double calcRn(double x) {
+    double ans = df9max;
+    double xk = 1.0;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; ++j) {
+            ans = ans * fabs(xk - x) / (i * 3 + j + 1);
+        }
+        xk += 0.5;
+    }
+    return ans;
 }
 
 int main() {
     double a  = 1.3;
     std::vector<std::vector<double>> function{{1.0, 1.5, 2.0},
-                                              {func(a, 1.0), func(a, 1.5), func(a, 2.0)},
-                                              {grad(a, 1.0), grad(a, 1.5), grad(a, 2.0)},
-                                              {ges(a, 1.0), ges(a, 1.5), ges(a, 2.0)}};
+                                              {func(1.0), func(1.5), func(2.0)},
+                                              {grad(1.0), grad(1.5), grad(2.0)},
+                                              {ges(1.0), ges(1.5), ges(2.0)}};
     Interpolation interpolation(function);
-    double x = 1.906666666666666;
-    std::cout << std::setprecision(20) << interpolation.value(x) - func(a, x);
+    double x1 = 31.0 / 30;
+    double x2 = 46.0 / 30;
+    double x3 = 59.0 / 30;
+    std::cout << "X1=" << interpolation.value(x1) << std::endl;
+    std::cout << "X2=" << interpolation.value(x2) << std::endl;
+    std::cout << "X3=" << interpolation.value(x3) << std::endl;
+    std::cout << "RX1=" << calcRn(x1) << std::endl;
+    std::cout << "RX2=" << calcRn(x2) << std::endl;
+    std::cout << "RX3=" << calcRn(x3) << std::endl;
+    std::cout << "RX1True=" << fabs(interpolation.value(x1) - func(x1)) << std::endl;
+    std::cout << "RX2True=" << fabs(interpolation.value(x2) - func(x2)) << std::endl;
+    std::cout << "RX3True=" << fabs(interpolation.value(x3) - func(x3)) << std::endl;
     return 0;
 }

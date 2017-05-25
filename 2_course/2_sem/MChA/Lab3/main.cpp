@@ -12,7 +12,7 @@ const double x0 = 1;
 const double step = 0.1;
 std::vector<std::vector<double>> konechRazn;
 const double accuracy = 1e-6;
-const double df11max = alpha * exp(2) + (1 - alpha) * cos(2);
+const double df11max = alpha * exp(2) - (1 - alpha) * cos(1);
 
 double f(double x) {
     return alpha * exp(x) + (1 - alpha) * sin(x);

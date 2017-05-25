@@ -6,7 +6,7 @@ const double x0 = 1;
 const double step = 0.1;
 const int n = 10;
 const double alpha = 1.3;
-const double df11max = alpha * exp(2) + (1 - alpha) * cos(2);
+const double df11max = alpha * exp(2) - (1 - alpha) * cos(1);
 
 double func(double x) {
     return alpha * exp(x) + (1 - alpha) * sin(x);

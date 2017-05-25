@@ -101,7 +101,7 @@ const double x0 = 1;
 const double step = 0.1;
 std::vector<std::vector<double>> konechRazn;
 const double accuracy = 1e-6;
-const double df11max = alpha * exp(2) + (1 - alpha) * cos(2);
+const double df11max = alpha * exp(2) - (1 - alpha) * cos(1);
 
 double f(double x) {
     return alpha * exp(x) + (1 - alpha) * sin(x);
@@ -224,8 +224,8 @@ int main() {
 Выходные данные:\\
 $P_n(x^*) = 3.39584$\\
 $P_n(x^{***})= 9.01406$\\
-$R_n(x^*) \leq 9.99631e^{-13}$\\
-$R_n(x^{***}) \leq 9.99631e^{-13}$\\
+$R_n(x^*) \leq 1.00346e^{-11}$\\
+$R_n(x^{***}) \leq 1.00346e^{-13}$\\
 $R_{true}(x^*) = 5.8753e^{-13}$\\
 $R_{true}(x^{***}) = 6.18172e^{-13}$\\
 Вывод:\\
