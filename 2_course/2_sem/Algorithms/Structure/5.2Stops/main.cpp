@@ -78,35 +78,28 @@ int main() {
     } else {
         std::cout << stops[last].first - 3 << std::endl;
         std::stack<std::pair<int, int>> answer;
+        auto elem = stops[last].second;
+        answer.push(elem);
         while (last != first) {
-            auto elem = stops[last].second;
-            answer.push(elem);
-            while (true) {
-                if (elem.second > 0 && routes[elem.first][elem.second].second ==
-                                       routes[elem.first][elem.second - 1].second + 1) {
-                    --elem.second;
-                } else if (elem.second + 1 < routes[elem.first].size() &&
-                           routes[elem.first][elem.second].second ==
-                           routes[elem.first][elem.second + 1].second + 1) {
-                    ++elem.second;
-                } else {
-                    break;
-                }
+            if (elem.second > 0 && routes[elem.first][elem.second].second ==
+                                   routes[elem.first][elem.second - 1].second + 1) {
+                --elem.second;
+                answer.push(elem);
+            } else if (elem.second + 1 < routes[elem.first].size() &&
+                       routes[elem.first][elem.second].second ==
+                       routes[elem.first][elem.second + 1].second + 1) {
+                ++elem.second;
+                answer.push(elem);
+            } else {
+                last = routes[elem.first][elem.second].first;
+                elem = stops[last].second;
             }
-            last = routes[elem.first][elem.second].first;
         }
-        std::cout << last + 1 << " ";
-        std::cout << answer.top().first + 1 << std::endl;
         while (!answer.empty()) {
             std::cout << routes[answer.top().first][answer.top().second].first + 1
                       << " ";
-            if (answer.size() != 1) {
-                answer.pop();
-                std::cout << answer.top().first + 1 << std::endl;
-            } else {
                 std::cout << answer.top().first + 1 << std::endl;
                 answer.pop();
-            }
         }
     }
     fclose(stdin);
