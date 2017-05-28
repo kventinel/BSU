@@ -5,8 +5,8 @@
 
 const int n = 11;
 const double alpha = 1.3;
-const double x1 = 1.03333333333;
-const double x3 = 1.96666666667;
+const double x1 = 31.0 / 30;
+const double x3 = 59.0 / 30;
 std::vector<double> nodes;
 const double x0 = 1;
 const double step = 0.1;
@@ -18,22 +18,22 @@ double f(double x) {
     return alpha * exp(x) + (1 - alpha) * sin(x);
 }
 
-static double f1(double x) {
+double f1(double x) {
     return alpha * exp(x) + (1 - alpha) * cos(x);
 }
 
-static double f2(double x) {
+double f2(double x) {
     return alpha * exp(x) - (1 - alpha) * sin(x);
 }
 
-static void makeNodes() {
+void makeNodes() {
     nodes.resize(n);
     for (int i = 0; i < n; i++) {
         nodes[i] = x0 + i * (2 - 1) / 10.;
     }
 }
 
-static void makeKR() {
+void makeKR() {
     konechRazn.resize(n);
     for (int i = 0; i < n; i++) {
         konechRazn[i].resize(n);
@@ -44,12 +44,6 @@ static void makeKR() {
             konechRazn[j][i] = konechRazn[j + 1][i - 1] - konechRazn[j][i - 1];
         }
     }
-}
-
-static int factorial(int x) {
-    if (x == 1 || x == 0)
-        return 1;
-    return x * factorial(x - 1);
 }
 
 double begin(double x) {
