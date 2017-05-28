@@ -23,7 +23,8 @@ double Lagranj(double x) {
             double xj = x0 + j * step;
             term = term * (x - xj) / (xi - xj);
         }
-        term *= func(xi), ans += term;
+        term *= func(xi);
+        ans += term;
     }
     return ans;
 }
@@ -43,8 +44,6 @@ int main() {
     double x = 31.0 / 30;
     double xx = 46.0 / 30;
     double xxx = 59.0 / 30;
-
-
     std::cout << "P1 " << std::setprecision(15) << Lagranj(x) << std::endl;
     std::cout << "P2 " << std::setprecision(15) << Lagranj(xx) << std::endl;
     std::cout << "P3 " << std::setprecision(15) << Lagranj(xxx) << std::endl;
