@@ -15,7 +15,8 @@ double func(double x) {
 double Lagranj(double x) {
     double ans = 0;
     for (int i = 0; i <= n; i++) {
-        double term = 1, xi = x0 + i * step;
+        double term = 1;
+        double xi = x0 + i * step;
         for (int j = 0; j <= n; j++) {
             if (i == j) {
                 continue;
