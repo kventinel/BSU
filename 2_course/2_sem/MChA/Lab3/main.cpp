@@ -107,11 +107,11 @@ double expectedBegin(double x) {
 }
 
 static void print() {
-    std::cout << "x*: " << std:: endl << "resalt: " << begin(x1) << std::endl;
+    std::cout << "x*: " << std:: endl << "result: " << begin(x1) << std::endl;
     std::cout << "expected: " << expectedBegin(x1) << std::endl;
     std::cout << "true: " << fabs(begin(x1) - f(x1)) << std::endl;
     std::cout << "degree with <= E-6: " << beginAndAc(x1) << std::endl;
-    std::cout << "x***: " << std::endl << "resalt: " << end(x3) << std::endl;
+    std::cout << "x***: " << std::endl << "result: " << end(x3) << std::endl;
     std::cout << "expected: " << expectedEnd(x3) << std::endl;
     std::cout << "true: " << fabs(end(x3) - f(x3)) << std::endl;
     std::cout << "degree with <= E-6: " << endAndAc(x3) << std::endl;
