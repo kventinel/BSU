@@ -4,34 +4,26 @@
 #include <iomanip>
 
 const double a = 1.3;
-double df9max = a * exp(2.0) + (1 - a) * cos(2);
+double df7max = a * exp(2.0) - (1 - a) * cos(2.0);
 
 class Interpolation {
 public:
     Interpolation(const std::vector<std::vector<double>> &function) :
-            divided_diff_(10, std::vector<double>(9)) {
-        for (int i = 0; i < 9; ++i) {
-            divided_diff_[0][i] = function[0][i / 3];
-            divided_diff_[1][i] = function[1][i / 3];
+            divided_diff_(7, std::vector<double>(6)) {
+        for (int i = 0; i < 6; ++i) {
+            divided_diff_[0][i] = function[0][i / 2];
+            divided_diff_[1][i] = function[1][i / 2];
         }
-        for (int i = 1; i < 9; ++i) {
-            if (i % 3 == 0) {
+        for (int i = 1; i < 6; ++i) {
+            if (i % 2 == 0) {
                 divided_diff_[2][i] = (divided_diff_[1][i] - divided_diff_[1][i - 1]) /
                                       (divided_diff_[0][i] - divided_diff_[0][i - 1]);
             } else {
-                divided_diff_[2][i] = function[2][i / 3];
+                divided_diff_[2][i] = function[2][i / 2];
             }
         }
-        for (int i = 2; i < 9; ++i) {
-            if (i % 3 != 2) {
-                divided_diff_[3][i] = (divided_diff_[2][i] - divided_diff_[2][i - 1]) /
-                                      (divided_diff_[0][i] - divided_diff_[0][i - 2]);
-            } else {
-                divided_diff_[3][i] = function[3][i / 3] / 2;
-            }
-        }
-        for (int i = 4; i < 10; ++i) {
-            for (int j = i - 1; j < 9; ++j) {
+        for (int i = 3; i < 7; ++i) {
+            for (int j = i - 1; j < 6; ++j) {
                 divided_diff_[i][j] = (divided_diff_[i - 1][j] - divided_diff_[i - 1][j - 1]) /
                                       (divided_diff_[0][j] - divided_diff_[0][j - i + 1]);
             }
@@ -41,7 +33,7 @@ public:
     double value(double point) {
         double res = 0;
         double k = 1;
-        for (int i = 1; i < 10; ++i) {
+        for (int i = 1; i < 7; ++i) {
             res += k * divided_diff_[i][i - 1];
             k *= (point - divided_diff_[0][i - 1]);
         }
@@ -60,16 +52,12 @@ double grad(double x) {
     return a * exp(x) + (1 - a) * cos(x);
 }
 
-double ges(double x) {
-    return a * exp(x) - (1 - a) * sin(x);
-}
-
 double calcRn(double x) {
-    double ans = df9max;
+    double ans = df7max;
     double xk = 1.0;
     for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; ++j) {
-            ans = ans * fabs(xk - x) / (i * 3 + j + 1);
+        for (int j = 0; j < 2; ++j) {
+            ans = ans * fabs(xk - x) / (i * 2 + j + 1);
         }
         xk += 0.5;
     }
@@ -77,11 +65,9 @@ double calcRn(double x) {
 }
 
 int main() {
-    double a  = 1.3;
     std::vector<std::vector<double>> function{{1.0, 1.5, 2.0},
                                               {func(1.0), func(1.5), func(2.0)},
-                                              {grad(1.0), grad(1.5), grad(2.0)},
-                                              {ges(1.0), ges(1.5), ges(2.0)}};
+                                              {grad(1.0), grad(1.5), grad(2.0)}};
     Interpolation interpolation(function);
     double x1 = 31.0 / 30;
     double x2 = 46.0 / 30;
