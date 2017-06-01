@@ -139,48 +139,40 @@ int main() {
         dif[i][1] = f(x[i]);
     }
     makeDif(dif, n);
-    std::cout << "f(x1) = " << std::setprecision(15) << std::fixed << func(x1, dif) << std::endl; //
-    std::cout << "f(x2) = " << std::setprecision(15) << std::fixed << func(x2, dif) << std::endl;
-    std::cout << "f(x3) = " << std::setprecision(15) << std::fixed << func(x3, dif) << std::endl
-              << std::endl;
+    std::cout << "f(x1) = " << func(x1, dif) << std::endl;
+    std::cout << "f(x2) = " << func(x2, dif) << std::endl;
+    std::cout << "f(x3) = " << func(x3, dif) << std::endl << std::endl;
     dif[n][0] = x1;
     dif[n][1] = f(x1);
     makeDif(dif, n + 1);
-    std::cout << "Погрешность в х1 = " << std::setprecision(15) << std::fixed
-              << dif[0][n + 1] * w(x1, x) << std::endl;
-    std::cout << "Истинная погрешность в x1 = " << std::setprecision(15) << std::fixed
-              << func(x1, dif) - f(x1) << std::endl << std::endl;
+    std::cout << "Погрешность в х1 = " << dif[0][n + 1] * w(x1, x) << std::endl;
+    std::cout << "Истинная погрешность в x1 = " << func(x1, dif) - f(x1) << std::endl << std::endl;
     dif[n][0] = x2;
     dif[n][1] = f(x2);
     makeDif(dif, n + 1);
-    std::cout << "Погрешность в х2 = " << std::setprecision(15) << std::fixed
-              << dif[0][n + 1] * w(x2, x) << std::endl;
-    std::cout << "Истинная погрешность в x2 = " << std::setprecision(15) << std::fixed
-              << func(x2, dif) - f(x2) << std::endl << std::endl;
+    std::cout << "Погрешность в х2 = " << dif[0][n + 1] * w(x2, x) << std::endl;
+    std::cout << "Истинная погрешность в x2 = " << func(x2, dif) - f(x2) << std::endl << std::endl;
     dif[n][0] = x3;
     dif[n][1] = f(x3);
     makeDif(dif, n + 1);
-    std::cout << "Погрешность в х3 = " << std::setprecision(15) << std::fixed
-              << dif[0][n + 1] * w(x3, x) << std::endl;
-    std::cout << "Истинная погрешность в x3 = " << std::setprecision(15) << std::fixed
-              << func(x3, dif) - f(x3) << std::endl;
+    std::cout << "Погрешность в х3 = " << dif[0][n + 1] * w(x3, x) << std::endl;
+    std::cout << "Истинная погрешность в x3 = " << func(x3, dif) - f(x3) << std::endl;
     return 0;
 }
 \end{verbatim}
-\section*{Результаты и вывод}\noindent
-Выходные данные:\\
-$P_n(x^*) = 3.395840703657075$\\
-$P_n(x^{**}) = 5.723885855903852$\\
-$P_n(x^{***})= 9.014059843851850$\\
-$R_n(x^*) \leq 5.83e^{-13}$\\
-$R_n(x^{**}) \leq 7e^{-15}$\\
-$R_n(x^{***}) \leq 6.30e^{-13}$\\
-$R_{true}(x^*) = 5.84e^{-13}$\\
-$R_{true}(x^{**}) = 8e^{-15}$\\
-$R_{true}(x^{***}) = 6.29e^{-13}$\\
-Вывод:\\
+\section*{Результаты}\noindent
+$P_n(x^*) = 3.39584$\\
+$P_n(x^{**}) = 5.72389$\\
+$P_n(x^{***})= 9.01406$\\
+$R_n(x^*) \leq 5.82724e^{-13}$\\
+$R_n(x^{**}) \leq 6.71147e^{-15}$\\
+$R_n(x^{***}) \leq 6.29834e^{-13}$\\
+$R_{true}(x^*) = 5.83533e^{-13}$\\
+$R_{true}(x^{**}) = 7.99361e^{-15}$\\
+$R_{true}(x^{***}) = 6.2883e^{-13}$\\
+\section*{Вывод}\noindent
 Метод Ньютона нахождения интерполяционного многочлена позволяет достаточно точно интерполировать
-функцию, при этом абсолютная погрешность в рассматриваемых точках не превосходит $7e^{-13}$. Наиболее 
-точные значения получаются вблизи центрального узла таблицы. Метод Ньютона даёт точность
-примерно 1.5 раза больше при такой же сложности, что и метод Лагранжа.
+функцию, при этом абсолютная погрешность в рассматриваемых точках не превосходит $1e^{-12}$. Наиболее 
+точные значения получаются вблизи центрального узла таблицы. Метод Ньютона имеет такие же точность и 
+сложность как и метод Лагранжа.
 \end{document}
