@@ -94,35 +94,35 @@ R_n(x_n + th) = \frac{f^{(n + 1)}(\xi)}{(n + 1)!}t(t + 1)\dots(t + n)h^{n + 1}
 
 const int n = 11;
 const double alpha = 1.3;
-const double x1 = 1.03333333333;
-const double x3 = 1.96666666667;
+const double x1 = 31.0 / 30;
+const double x3 = 59.0 / 30;
 std::vector<double> nodes;
 const double x0 = 1;
 const double step = 0.1;
 std::vector<std::vector<double>> konechRazn;
-const double accuracy = 1e-6;
+const double accuracy = 1e-5;
 const double df11max = alpha * exp(2) - (1 - alpha) * cos(1);
 
 double f(double x) {
     return alpha * exp(x) + (1 - alpha) * sin(x);
 }
 
-static double f1(double x) {
+double f1(double x) {
     return alpha * exp(x) + (1 - alpha) * cos(x);
 }
 
-static double f2(double x) {
+double f2(double x) {
     return alpha * exp(x) - (1 - alpha) * sin(x);
 }
 
-static void makeNodes() {
+void makeNodes() {
     nodes.resize(n);
     for (int i = 0; i < n; i++) {
         nodes[i] = x0 + i * (2 - 1) / 10.;
     }
 }
 
-static void makeKR() {
+void makeKR() {
     konechRazn.resize(n);
     for (int i = 0; i < n; i++) {
         konechRazn[i].resize(n);
@@ -133,12 +133,6 @@ static void makeKR() {
             konechRazn[j][i] = konechRazn[j + 1][i - 1] - konechRazn[j][i - 1];
         }
     }
-}
-
-static int factorial(int x) {
-    if (x == 1 || x == 0)
-        return 1;
-    return x * factorial(x - 1);
 }
 
 double begin(double x) {
@@ -202,15 +196,14 @@ double expectedBegin(double x) {
 }
 
 static void print() {
-    std::cout << "x*: " << std:: endl << "resalt: " << begin(x1) << std::endl;
+    std::cout << "x*: " << std:: endl << "result: " << begin(x1) << std::endl;
     std::cout << "expected: " << expectedBegin(x1) << std::endl;
     std::cout << "true: " << fabs(begin(x1) - f(x1)) << std::endl;
-    std::cout << "degree with <= E-6: " << beginAndAc(x1) << std::endl;
-    std::cout << "x***: " << std::endl << "resalt: " << end(x3) << std::endl;
+    std::cout << "degree with <= E-5: " << beginAndAc(x1) << std::endl;
+    std::cout << "x***: " << std::endl << "result: " << end(x3) << std::endl;
     std::cout << "expected: " << expectedEnd(x3) << std::endl;
     std::cout << "true: " << fabs(end(x3) - f(x3)) << std::endl;
-    std::cout << "degree with <= E-6: " << endAndAc(x3) << std::endl;
-
+    std::cout << "degree with <= E-5: " << endAndAc(x3) << std::endl;
 }
 
 int main() {
@@ -222,12 +215,24 @@ int main() {
 \end{verbatim}
 \section*{Результаты и вывод}\noindent
 Выходные данные:\\
-$P_n(x^*) = 3.39584$\\
-$P_n(x^{***})= 9.01406$\\
-$R_n(x^*) \leq 1.00346e^{-12}$\\
-$R_n(x^{***}) \leq 1.00346e^{-12}$\\
-$R_{true}(x^*) = 5.8753e^{-13}$\\
-$R_{true}(x^{***}) = 6.18172e^{-13}$\\
+Начало таблицы:
+
+$P_n(x^*) = 3.39584$
+
+$R_n(x^*) \leq 1.00346e^{-12}$
+
+$R_{true}(x^*) = 5.8753e^{-13}$
+
+$n \geq 4 => |R_n| < \epsilon$\\
+Конец таблицы:
+
+$P_n(x^{***})= 9.01406$
+
+$R_n(x^{***}) \leq 1.00346e^{-12}$
+
+$R_{true}(x^{***}) = 6.18172e^{-13}$
+
+$n \geq 4 => |R_n| < \epsilon$\\
 Вывод:\\
 Модификация многочлена Ньютона для равномерной сетки не дала выигрыша в точности: и для $x^*$, и для $x^{***}$ мы получили точности того же порядка, что и без неё. Если учитывать тот факт, что модификации проводились как для конца, так и для начала таблицы, а исходный многочлен был построен в единственном экземпляре и дал сравнимые результаты, то можно сказать, что при
 необходимости нахождения максимально точного значения данная модификация не даёт достаточного выигрыша, однако она удобна, если требуется найти значения с наперёд заданной точностью.

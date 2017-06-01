@@ -11,7 +11,7 @@ std::vector<double> nodes;
 const double x0 = 1;
 const double step = 0.1;
 std::vector<std::vector<double>> konechRazn;
-const double accuracy = 1e-6;
+const double accuracy = 1e-5;
 const double df11max = alpha * exp(2) - (1 - alpha) * cos(1);
 
 double f(double x) {
@@ -110,11 +110,11 @@ static void print() {
     std::cout << "x*: " << std:: endl << "result: " << begin(x1) << std::endl;
     std::cout << "expected: " << expectedBegin(x1) << std::endl;
     std::cout << "true: " << fabs(begin(x1) - f(x1)) << std::endl;
-    std::cout << "degree with <= E-6: " << beginAndAc(x1) << std::endl;
+    std::cout << "degree with <= E-5: " << beginAndAc(x1) << std::endl;
     std::cout << "x***: " << std::endl << "result: " << end(x3) << std::endl;
     std::cout << "expected: " << expectedEnd(x3) << std::endl;
     std::cout << "true: " << fabs(end(x3) - f(x3)) << std::endl;
-    std::cout << "degree with <= E-6: " << endAndAc(x3) << std::endl;
+    std::cout << "degree with <= E-5: " << endAndAc(x3) << std::endl;
 }
 
 int main() {
