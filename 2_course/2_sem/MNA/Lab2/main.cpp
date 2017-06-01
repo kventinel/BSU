@@ -51,30 +51,23 @@ int main() {
         dif[i][1] = f(x[i]);
     }
     makeDif(dif, n);
-    std::cout << "f(x1) = " << std::setprecision(15) << std::fixed << func(x1, dif) << std::endl; //
-    std::cout << "f(x2) = " << std::setprecision(15) << std::fixed << func(x2, dif) << std::endl;
-    std::cout << "f(x3) = " << std::setprecision(15) << std::fixed << func(x3, dif) << std::endl
-              << std::endl;
+    std::cout << "f(x1) = " << func(x1, dif) << std::endl;
+    std::cout << "f(x2) = " << func(x2, dif) << std::endl;
+    std::cout << "f(x3) = " << func(x3, dif) << std::endl << std::endl;
     dif[n][0] = x1;
     dif[n][1] = f(x1);
     makeDif(dif, n + 1);
-    std::cout << "Погрешность в х1 = " << std::setprecision(15) << std::fixed
-              << dif[0][n + 1] * w(x1, x) << std::endl;
-    std::cout << "Истинная погрешность в x1 = " << std::setprecision(15) << std::fixed
-              << func(x1, dif) - f(x1) << std::endl << std::endl;
+    std::cout << "Погрешность в х1 = " << dif[0][n + 1] * w(x1, x) << std::endl;
+    std::cout << "Истинная погрешность в x1 = " << func(x1, dif) - f(x1) << std::endl << std::endl;
     dif[n][0] = x2;
     dif[n][1] = f(x2);
     makeDif(dif, n + 1);
-    std::cout << "Погрешность в х2 = " << std::setprecision(15) << std::fixed
-              << dif[0][n + 1] * w(x2, x) << std::endl;
-    std::cout << "Истинная погрешность в x2 = " << std::setprecision(15) << std::fixed
-              << func(x2, dif) - f(x2) << std::endl << std::endl;
+    std::cout << "Погрешность в х2 = " << dif[0][n + 1] * w(x2, x) << std::endl;
+    std::cout << "Истинная погрешность в x2 = " << func(x2, dif) - f(x2) << std::endl << std::endl;
     dif[n][0] = x3;
     dif[n][1] = f(x3);
     makeDif(dif, n + 1);
-    std::cout << "Погрешность в х3 = " << std::setprecision(15) << std::fixed
-              << dif[0][n + 1] * w(x3, x) << std::endl;
-    std::cout << "Истинная погрешность в x3 = " << std::setprecision(15) << std::fixed
-              << func(x3, dif) - f(x3) << std::endl;
+    std::cout << "Погрешность в х3 = " << dif[0][n + 1] * w(x3, x) << std::endl;
+    std::cout << "Истинная погрешность в x3 = " << func(x3, dif) - f(x3) << std::endl;
     return 0;
 }

@@ -6,7 +6,7 @@ const double x0 = 1;
 const double step = 0.1;
 const int n = 10;
 const double alpha = 1.3;
-const double df11max = alpha * exp(2) - (1 - alpha) * cos(1);
+const double df11max = alpha * exp(2) - (1 - alpha) * cos(2);
 
 double func(double x) {
     return alpha * exp(x) + (1 - alpha) * sin(x);
@@ -45,15 +45,15 @@ int main() {
     double x = 31.0 / 30;
     double xx = 46.0 / 30;
     double xxx = 59.0 / 30;
-    std::cout << "P1 " << std::setprecision(15) << Lagranj(x) << std::endl;
-    std::cout << "P2 " << std::setprecision(15) << Lagranj(xx) << std::endl;
-    std::cout << "P3 " << std::setprecision(15) << Lagranj(xxx) << std::endl;
-    std::cout << "R1 " << std::setprecision(15) << calcR_true(x) << std::endl;
-    std::cout << "R2 " << std::setprecision(15) << calcR_true(xx) << std::endl;
-    std::cout << "R3 " << std::setprecision(15) << calcR_true(xxx) << std::endl;
-    std::cout << std::setprecision(15) << df11max * pow(0.1, 11) / 44 << std::endl;
-    std::cout << "R1 " << std::setprecision(15) << calcRn(x) << std::endl;
-    std::cout << "R2 " << std::setprecision(15) << calcRn(xx) << std::endl;
-    std::cout << "R3 " << std::setprecision(15) << calcRn(xxx) << std::endl;
+    std::cout << "P1 " << Lagranj(x) << std::endl;
+    std::cout << "P2 " << Lagranj(xx) << std::endl;
+    std::cout << "P3 " << Lagranj(xxx) << std::endl;
+    std::cout << "R1True " << calcR_true(x) << std::endl;
+    std::cout << "R2True " << calcR_true(xx) << std::endl;
+    std::cout << "R3True " << calcR_true(xxx) << std::endl;
+    std::cout << "M " << df11max * pow(0.1, 11) / 44 << std::endl;
+    std::cout << "R1 " << calcRn(x) << std::endl;
+    std::cout << "R2 " << calcRn(xx) << std::endl;
+    std::cout << "R3 " << calcRn(xxx) << std::endl;
     return 0;
 }
