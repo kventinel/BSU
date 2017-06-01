@@ -4,7 +4,7 @@
 #include <iomanip>
 
 const double a = 1.3;
-double df7max = a * exp(2.0) - (1 - a) * cos(2.0);
+double df5max = a * exp(2.0) + (1 - a) * cos(2.0);
 
 class Interpolation {
 public:
@@ -53,7 +53,7 @@ double grad(double x) {
 }
 
 double calcRn(double x) {
-    double ans = df7max;
+    double ans = df5max;
     double xk = 1.0;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 2; ++j) {
