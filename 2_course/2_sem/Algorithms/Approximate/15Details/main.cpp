@@ -17,8 +17,8 @@ int main() {
     while (std::cin >> elem) {
         ans.push(i);
         si += elem;
+        maxs = std::max(maxs, si);
         if (s / n < si) {
-            maxs = std::max(maxs, si);
             si = 0;
             ++i;
         }
