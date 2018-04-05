@@ -1,21 +1,24 @@
-#include <iostream>
+#include <fstream>
 #include <cstdio>
 #include <memory>
+
+std::ifstream fin("input.txt");
+std::ofstream fout("output.txt");
 
 class Tree {
 private:
   class Node {
   public:
-    Node(int key, std::shared_ptr<Node> parent) : key_(key), parent_(parent) {}
+    Node(int key, Node* parent) : key_(key), parent_(parent) {}
 
-    void setLeftSon(std::shared_ptr<Node> son);
-    void setRightSon(std::shared_ptr<Node> son);
-    void setParent(std::shared_ptr<Node> parent);
+    void setLeftSon(Node* son);
+    void setRightSon(Node* son);
+    void setParent(Node* parent);
 
     int getKey();
-    std::shared_ptr<Node> getLeftSon();
-    std::shared_ptr<Node> getRightSon();
-    std::shared_ptr<Node> getParent();
+    Node* getLeftSon();
+    Node* getRightSon();
+    Node* getParent();
 
     bool hasLeftSon();
     bool hasRightSon();
@@ -25,47 +28,47 @@ private:
 
   private:
     int key_;
-    std::shared_ptr<Node> parent_;
-    std::shared_ptr<Node> left_son_;
-    std::shared_ptr<Node> right_son_;
+    Node* parent_ = nullptr;
+    Node* left_son_ = nullptr;
+    Node* right_son_ = nullptr;
   };
 
 public:
   Tree() {}
 
   void insert(int key);
-  void erase(std::shared_ptr<Node> node);
+  void erase(Node* node);
   void erase(int key);
-  void rootLeftRight(std::shared_ptr<Node> node);
+  void rootLeftRight(Node* node);
   void rootLeftRight();
 
   ~Tree();
 
 private:
-  std::shared_ptr<Node> root;
+  Node* root = nullptr;
 
-  void setSon(std::shared_ptr<Node> parent, std::shared_ptr<Node> old_son,
-              std::shared_ptr<Node> new_son);
-  void setLeftSon(std::shared_ptr<Node> parent, std::shared_ptr<Node> son);
-  void setRightSon(std::shared_ptr<Node> parent, std::shared_ptr<Node> son);
+  void setSon(Node* parent, Node* old_son,
+              Node* new_son);
+  void setLeftSon(Node* parent, Node* son);
+  void setRightSon(Node* parent, Node* son);
 };
 
 void Tree::insert(int key) {
   if (root == nullptr) {
-    root = std::shared_ptr<Node>(new Node(key, nullptr));
+    root = new Node(key, nullptr);
   } else {
-    std::shared_ptr<Node> node = root;
+    Node* node = root;
     while (true) {
       if (node->getKey() > key) {
         if (node->getLeftSon() == nullptr) {
-          node->setLeftSon(std::shared_ptr<Node>(new Node(key, node)));
+          node->setLeftSon(new Node(key, node));
           node->getLeftSon()->setParent(node);
         } else {
           node = node->getLeftSon();
         }
       } else if (node->getKey() < key){
         if (node->getRightSon() == nullptr) {
-          node->setRightSon(std::shared_ptr<Node>(new Node(key, node)));
+          node->setRightSon(new Node(key, node));
           node->getRightSon()->setParent(node);
         } else {
           node = node->getRightSon();
@@ -77,9 +80,9 @@ void Tree::insert(int key) {
   }
 }
 
-void Tree::erase(std::shared_ptr<Tree::Node> node) {
+void Tree::erase(Tree::Node* node) {
   if (node->hasLeftSon() && node->hasRightSon()) {
-    std::shared_ptr<Node> to_swap = node->getRightSon();
+    Node* to_swap = node->getRightSon();
     while (to_swap->hasLeftSon()) {
       to_swap = to_swap->getLeftSon();
     }
@@ -91,7 +94,7 @@ void Tree::erase(std::shared_ptr<Tree::Node> node) {
       root = to_swap;
     }
   } else {
-    std::shared_ptr<Node> son = node->hasLeftSon() ? node->getLeftSon()
+    Node* son = node->hasLeftSon() ? node->getLeftSon()
                                                    : node->getRightSon();
     setSon(node->getParent(), node, son);
     if (node == root) {
@@ -100,10 +103,10 @@ void Tree::erase(std::shared_ptr<Tree::Node> node) {
   }
 }
 
-void Tree::rootLeftRight(std::shared_ptr<Node> node) {
+void Tree::rootLeftRight(Node* node) {
   while (true) {
     if (node != nullptr) {
-      std::cout << node->getKey() << std::endl;
+      fout << node->getKey() << std::endl;
       rootLeftRight(node->getLeftSon());
       node = node->getRightSon();
     } else {
@@ -116,9 +119,9 @@ void Tree::rootLeftRight() {
   rootLeftRight(root);
 }
 
-void Tree::setSon(std::shared_ptr<Tree::Node> parent,
-                  std::shared_ptr<Tree::Node> old_son,
-                  std::shared_ptr<Tree::Node> new_son) {
+void Tree::setSon(Tree::Node* parent,
+                  Tree::Node* old_son,
+                  Tree::Node* new_son) {
   if (parent != nullptr) {
     if (parent->getLeftSon() == old_son) {
       parent->setLeftSon(new_son);
@@ -131,8 +134,8 @@ void Tree::setSon(std::shared_ptr<Tree::Node> parent,
   }
 }
 
-void Tree::setLeftSon(std::shared_ptr<Tree::Node> parent,
-                      std::shared_ptr<Tree::Node> son) {
+void Tree::setLeftSon(Tree::Node* parent,
+                      Tree::Node* son) {
   if (parent != nullptr) {
     parent->setLeftSon(son);
   }
@@ -141,8 +144,8 @@ void Tree::setLeftSon(std::shared_ptr<Tree::Node> parent,
   }
 }
 
-void Tree::setRightSon(std::shared_ptr<Tree::Node> parent,
-                       std::shared_ptr<Tree::Node> son) {
+void Tree::setRightSon(Tree::Node* parent,
+                       Tree::Node* son) {
   if (parent != nullptr) {
     parent->setRightSon(son);
   }
@@ -152,7 +155,7 @@ void Tree::setRightSon(std::shared_ptr<Tree::Node> parent,
 }
 
 Tree::~Tree() {
-  std::shared_ptr<Node> node = root;
+  Node* node = root;
   while (root != nullptr) {
     while (node->hasLeftSon()) {
       node = node->getLeftSon();
@@ -167,7 +170,7 @@ Tree::~Tree() {
 }
 
 void Tree::erase(int key) {
-  std::shared_ptr<Node> node = root;
+  Node* node = root;
   while (node != nullptr && node->getKey() != key) {
     if (node->getKey() > key) {
       node = node->getLeftSon();
@@ -180,15 +183,15 @@ void Tree::erase(int key) {
   }
 }
 
-void Tree::Node::setLeftSon(std::shared_ptr<Tree::Node> son) {
+void Tree::Node::setLeftSon(Tree::Node* son) {
   left_son_ = son;
 }
 
-void Tree::Node::setRightSon(std::shared_ptr<Tree::Node> son) {
+void Tree::Node::setRightSon(Tree::Node* son) {
   right_son_ = son;
 }
 
-void Tree::Node::setParent(std::shared_ptr<Tree::Node> parent) {
+void Tree::Node::setParent(Tree::Node* parent) {
   parent_ = parent;
 }
 
@@ -196,15 +199,15 @@ int Tree::Node::getKey() {
   return key_;
 }
 
-std::shared_ptr<Tree::Node> Tree::Node::getLeftSon() {
+Tree::Node* Tree::Node::getLeftSon() {
   return left_son_;
 }
 
-std::shared_ptr<Tree::Node> Tree::Node::getRightSon() {
+Tree::Node* Tree::Node::getRightSon() {
   return right_son_;
 }
 
-std::shared_ptr<Tree::Node> Tree::Node::getParent() {
+Tree::Node* Tree::Node::getParent() {
   return parent_;
 }
 
@@ -221,14 +224,12 @@ bool Tree::Node::hasParent() {
 }
 
 int main() {
-  freopen("input.txt", "r", stdin);
-  freopen("output.txt", "w", stdout);
   Tree tree;
   int to_erase;
-  std::cin >> to_erase;
-  while (!std::cin.eof()) {
+  fin >> to_erase;
+  while (!fin.eof()) {
     int a;
-    std::cin >> a;
+    fin >> a;
     tree.insert(a);
   }
   tree.erase(to_erase);
