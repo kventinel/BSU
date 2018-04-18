@@ -2,3 +2,5 @@
 **/.idea/
 **/cmake-build-debug/
 **/.ipynb_checkpoints/
+**.fasta
+**.log
