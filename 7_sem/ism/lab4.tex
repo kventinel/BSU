@@ -1,0 +1,114 @@
+\documentclass[10pt]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{indentfirst}
+\usepackage{misccorr}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage[fleqn]{amsmath}
+\usepackage{tikz}
+\usepackage{diagbox}
+\usepackage[a4paper,margin=1.0in,footskip=0.25in]{geometry}
+\makeatletter
+\newcommand{\verbatimfont}[1]{\renewcommand{\verbatim@font}{\ttfamily#1}}
+\begin{document}
+\author{Рак Алексей}
+\title{Optimization_Methods/Homework1/Rak}
+\begin{titlepage}
+		\centering
+		{\scshape\LARGE Белорусский Государственный Университет \par}
+        \vfill
+        {\scshape\LARGE 	Имитационное и статистическое моделирование \par}
+        \vspace{1cm}
+        {\scshape\LARGE Лабораторная работа 4\par}
+        \vspace{2cm}
+        {\LARGE Рак Алексей, 3 группа, 4 курс\par}
+        \vfill
+        {\large \today}
+\end{titlepage}
+\section*{Задача}
+стр. 147, задание 10.	
+\section*{Постановка задачи}
+Информационная система состоящая из $2$ транзитных каналов с входным накопителем, осуществляет передачу речи в цифровом виде. Время передачи цифрового пакета по каждому каналу составляет $t$ мс, интервал поступления -- $\mu_B \pm \Delta \mu_B$ мс. Пакеты, длительность передачи которых превышает $tn$ мс, подлежат уничтожению, так как сильно искажают качество речи, однако более $a\%$ уничтожения недопустимо.
+
+Смоделировать средствами GPSSV работу описанной системы. Оценить частоту уничтожения пакетов.
+
+Первоначальный перечень экспериментов: $t = 5$, $\mu_B = 6$, $\Delta \mu_B = 3$, $tn = 10$, $a = 30$.
+\section*{Листинг}
+\verbatimfont{\small}
+\begin{verbatim}
+    START 10000                				;количество транзактов
+    GENERATE 6,3                    		;получение сигнала каждые 6 +- 3 мс	
+    MARK MARKER							;запоминание момента времени
+    TRANSFER BOTH,CANAL_1,CANAL_2           ;попытка войти в один из блоков
+ 
+CANAL_1     SEIZE MOVE_1                    ;занять 1ый канал
+    ADVANCE 5                   ;проход по каналу
+    RELEASE MOVE_1              ;освободить 1ый канал
+    TRANSFER ,FINISH        ;закончить проход по каналу
+ 
+CANAL_2 SEIZE MOVE_2                ;занять 2ой канал
+    ADVANCE 5                   ;проход по каналу
+    RELEASE MOVE_2              ;освободить 2ой канал
+    TRANSFER ,FINISH        ;закончить проход по каналу
+ 
+FINISH  TEST G MP$MARKER,10,GOOD		;удалить пакет, если он доставлялся слишком долго
+ 
+    MARK MARKER			;счётчик числа удалённых пакетов
+ 
+GOOD    TERMINATE 1		;уменьшить число тразактов
+\end{verbatim}
+\section*{Результаты}\noindent
+\verbatimfont{\small}
+\begin{verbatim}
+ 
+ 
+              GPSS World Simulation Report - Untitled Model 1.21.1
+ 
+ 
+                   Monday, December 17, 2018 21:29:39  
+ 
+           START TIME           END TIME  BLOCKS  FACILITIES  STORAGES
+                0.000        3601029.760    15        2          0
+ 
+ 
+              NAME                       VALUE  
+          CANAL_1                         5.000
+          CANAL_2                         9.000
+          FINISH                         13.000
+          GOOD                           15.000
+          MARKER                      10000.000
+          MOVE_1                      10001.000
+          MOVE_2                      10002.000
+          PROC                        UNSPECIFIED
+ 
+ 
+ LABEL              LOC  BLOCK TYPE     ENTRY COUNT CURRENT COUNT RETRY
+                    1    GENERATE         10000             0       0
+                    2    MARK             10000             0       0
+                    3    TRANSFER         10000             0       0
+                    4    ENTER                0             0       0
+CANAL_1             5    SEIZE             7670             0       0
+                    6    ADVANCE           7670             0       0
+                    7    RELEASE           7670             0       0
+                    8    TRANSFER          7670             0       0
+CANAL_2             9    SEIZE             2330             0       0
+                   10    ADVANCE           2330             0       0
+                   11    RELEASE           2330             0       0
+                   12    TRANSFER          2330             0       0
+FINISH             13    TEST             10000             0       0
+                   14    MARK               0             0       0
+GOOD               15    TERMINATE        10000             0       0
+ 
+ 
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ MOVE_1            7670    0.639     300.000  1        0    0    0     0      0
+ MOVE_2            2330    0.388     600.000  1        0    0    0     0      0
+ 
+ 
+FEC XN   PRI         BDT      ASSEM  CURRENT  NEXT  PARAMETER    VALUE
+ 10001    0     3601233.359   10001      0      1
+\end{verbatim}
+Число удалённых пакетов равно 0.
+Ожидаемое число удалённых пакетов также равно 0, так как новые пакеты появляются не чаще чем каждые 3 мс а по каналу пакет проходить за 5 мс, так как канала 2, то следующий пакет для данного канала приходит не раньше чем через 6 мс после предыдущего, а за это время предыдущий пакет успевает пройти по каналу.
+\end{document}
